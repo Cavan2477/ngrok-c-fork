@@ -1,70 +1,52 @@
 ## ngrok-c
 
-- the client of ngrok in language C
-- Before compiling, you need to generate the libpolarssl.a static library(via polarssl official website).
-- contact me via email: dosgo@qq.com
-
+1.该ngrok客户端是C语言版本
+2.在编译之前，请先生成libpolarssl.a（Linux）/libpolarssl.lib静态库(或者通过polarssl官方网站获取)
+3.可以通过邮件联系我,email:code_captain@163.com
 
 不会编译的伙伴可以用，hauntek大神写的python版本，https://github.com/hauntek/python-ngrok
 
-# openwrt 编译方法。
+# openwrt 编译方法
+OpenWrt是一种嵌入式开源Linux操作系统，我们这里选用Ubuntu。
+编译工具：openwrt
 - 看教程http://www.jianshu.com/p/8428949d946c
 - 另外还需要在mbedtls-lib子目录中以同样方法修改并执行build.sh，并将编译生成的三个.a静态库文件拷贝至上层目录中
 
-
 ## build  
-
 ddns.cpp and https.cpp are abondoned 
-
 
 # windows
 run Build.bat in CLI.
 
-
 # linux
 run build.sh instead of makefile
-
 
 # openwrt
 run openwrtbuild.sh
 
 # tomatoware
 ### openssl
- cp Makefile.openssl.static Makefile
+cp Makefile.openssl.static Makefile
  
- make
+make
 ### porlarssl
- cp Makefile.porlarssl.static Makefile
- 
- make
-
+cp Makefile.porlarssl.static Makefile
+make
 
 ## 使用说明
 
 命令
-
 ngrok-polarssl -SER[Shost:ngrokd.ngrok.com,Sport:443,Atoken:xxx] -AddTun[Type:http,Lhost:127.0.0.1,Lport:80,Sdname:xxdosgo]
 
-
 Shost   -Server host.   //服务器host
-
 Sport   -server port.   //服务器端口
-
 Atoken  -ngrok authtoken. //服务器认证串
-
-
 type    -tcp or http or https.   //要映射的类型，tcp,http,https
-
 Lhost   -local address.     //本地地址，如果是本机直接127.0.0.1
-
 Lport   -local port.     //本地端口
-
 sdname  -Subdomain.     //子域名
-
 Hostname -hostname      //自定义域名映射      
-
 Rport    -remote port  //远程端口，tcp映射的时候，制定端口使用。
-
 
 ## Example
 - ngrokc -SER[Shost:ngrokd.ngrok.com,Sport:443] -AddTun[Type:http,Lhost:127.0.0.1,Lport:80,Sdname:Example]  
@@ -75,18 +57,13 @@ You can also register multiple Tunnel, but can only have one of each type.
 
  
 ## 2015/7/10更新增加
-
-
 - 如，你只要把xx.xxx.org解析到tunnel.mobi，那么访问xx.xxx.org就可以了..比Sdname好。。
 
 ngrokc.exe -SER[Shost:tunnel.mobi,Sport:44433] -AddTun[Type:http,Lhost:127.0.0.1,Lport:80,Hostname:xx.xxx.org] -AddTun[Type:tcp,Lhost:127.0.0.1,Lport:80,Rport:55556] 
 - 有空的话增加openssl的支持
 
-
 - 感谢981213的makefile文件
 - 感谢maz-1 修复ubuntu下编译bug
-
-
 
 ## 2015/7/28更新
 - 增加openssl支持，
@@ -104,7 +81,6 @@ ngrokc.exe -SER[Shost:tunnel.mobi,Sport:44433] -AddTun[Type:http,Lhost:127.0.0.1
 ### 注意如果编译polarssl版本
 如果你使用的PolarSSL 版本是v2.0.0及其以上的版本编译，请把config.h文件的define ISMBEDTLS 改为1
 
-
 ## 2015/10/17
  - 修复内存泄漏
  - 增加编译详细说明
@@ -112,8 +88,7 @@ ngrokc.exe -SER[Shost:tunnel.mobi,Sport:44433] -AddTun[Type:http,Lhost:127.0.0.1
 
 ## 2015/10/20
  - 大幅减少内存占用
- - 如无重大bug，不更新了。。
- - 
+ - 如无重大bug，不更新了。
  
 ## 2015/11/5
 - 修复没网导致的内存泄漏问题。会导致路由不断重启
@@ -153,7 +128,6 @@ ngrokc.exe -SER[Shost:tunnel.mobi,Sport:44433] -AddTun[Type:http,Lhost:127.0.0.1
 ## 2016/04/19
 - 修复一个bug，增大缓存区。
 - 大幅减少CPU消耗，一般10%以下
-
 
 ## 2016/04/20
 - 修复1.22版本的polarssl下的bug，如果你使用的是ngrokc1.22版本，请更新，那个版本有重大bug，openssl版本没问题。
@@ -232,15 +206,9 @@ ngrokc.exe -SER[Shost:tunnel.mobi,Sport:44433] -AddTun[Type:http,Lhost:127.0.0.1
       - 把include/openssl，复制到你的下载的sdk,/home/dosgo/OpenWrt-SDK/staging_dir/toolchain-mips_r2_gcc-4.6-linaro_uClibc-0.9.33.2/include目录，
       - 运行编辑openwrtbuildv2.sh,就会在build-mips生成一个叫ngrokc的文件。成功了。。把它复制到bin目录。就可以运行ngrokc了。
       - 记得安装，libopenssl.ipk，官网有下载。
-      
+     
 
+编译的整个过程到此已经介绍完成，有bug可以通过Email联系。
 
-编译就这样了，以后请不要邮件问我怎么编译了，有bug可以联系。
-
-
-
-
-
-现在tunnel.mobi不能用了。。，哪里还有国内的服务器的。。
-
-
+FAQ：
+1.现在tunnel.mobi不能用了。。，哪里还有国内的服务器的。
