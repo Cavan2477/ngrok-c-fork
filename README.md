@@ -13,7 +13,7 @@ OpenWrt是一种嵌入式开源Linux操作系统，我们这里选用Ubuntu。
 - 另外还需要在mbedtls-lib子目录中以同样方法修改并执行build.sh，并将编译生成的三个.a静态库文件拷贝至上层目录中
 
 ## build  
-ddns.cpp and https.cpp are abondoned 
+ddns.cpp and https.cpp are abandoned 
 
 # windows
 run Build.bat in CLI.
